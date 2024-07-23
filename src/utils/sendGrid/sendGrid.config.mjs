@@ -1,9 +1,8 @@
 import nodemailer from "nodemailer";
 import sgTransport from "nodemailer-sendgrid-transport";
 
-const sendGridApiKey = process.env.sendGridAPIKey;
-
 const createSendGridConnection = () => {
+  const sendGridApiKey = process.env.sendGridAPIKey;
   let options = {
     auth: {
       api_key: sendGridApiKey,
