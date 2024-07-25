@@ -7,8 +7,9 @@ import {
 } from "../utils/helpers/hashPassword.mjs";
 import { generateOtp } from "../utils/helpers/generateOtp.mjs";
 import { Otp } from "../db/otpModel.mjs";
-import { forgotPasswordMailerBody } from "../config/MailerPayload.mjs";
-import { createSendGridConnection } from "../utils/sendGrid/sendGrid.config.mjs";
+import { createSendGridConnection } from "../config/sendGrid.config.mjs";
+import { forgotPasswordMailerBody } from "../utils/emailTemplates/forgotEmailTemplate.mjs";
+import { uploadFileOnCloudnary } from "../utils/fileUpload/uploadFileOnCloudnary.mjs";
 
 const registerController = async (request, response) => {
   const result = validationResult(request);
@@ -115,9 +116,30 @@ const changePasswordController = async (request, response) => {
   }
 };
 
+const uploadUserProfileController = async (request, response) => {
+  const {
+    file: { path },
+    user,
+  } = request;
+  try {
+    console.log(path, user, "file Path");
+    const uploadFile = await uploadFileOnCloudnary(path);
+    user.profile = uploadFile?.secure_url;
+    await User.updateOne({ email: user?.email }, user);
+    return response.status(200).send({
+      message: "Profile Uploaded Successfully.",
+      data: { url: uploadFile?.secure_url },
+    });
+  } catch (error) {
+    console.log("error in upload profile", error);
+    return response.sendStatus(500);
+  }
+};
+
 export {
   loginController,
   registerController,
   forgotPasswordController,
   changePasswordController,
+  uploadUserProfileController,
 };

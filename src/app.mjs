@@ -1,14 +1,12 @@
 import express from "express";
 import userRoutes from "./routes/userRoutes.mjs";
 import mongoose from "mongoose";
-import { DB_URL } from "./config/Db.constants.mjs";
 import notesRoutes from "./routes/notesRoutes.mjs";
 import dotenv from "dotenv";
 
 dotenv.config();
-console.log("process.env.sendGridAPIKey",process.env.sendGridAPIKey)
 mongoose
-  .connect(DB_URL)
+  .connect(process.env.DB_URL)
   .then(() => {
     console.log(`DB is connected.`);
   })

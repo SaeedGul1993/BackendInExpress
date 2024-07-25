@@ -5,6 +5,7 @@ import { User } from "../../db/userModel.mjs";
 const verifyTokenMiddleware = async (request, response, next) => {
   const getHeader = request.header("Authorization");
   const fetchToken = getHeader.replace("Bearer ", "");
+  console.log(fetchToken, "fetchToken");
   if (!fetchToken) response.status(401).send({ message: "UnAuthorized!." });
   try {
     const verifyToken = jwt.verify(fetchToken, SECRET_KEY);

@@ -13,7 +13,13 @@ const UserModel = new mongoose.Schema(
       required: true,
       unique: false,
     },
+    profile: {
+      type: mongoose.Schema.Types.String,
+      required: false,
+      unique: false,
+    },
   },
+
   { timestamps: true }
 );
 
