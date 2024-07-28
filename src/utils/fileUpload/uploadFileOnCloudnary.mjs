@@ -13,7 +13,7 @@ const uploadFileOnCloudnary = async (filePath) => {
     });
     return result;
   } catch (error) {
-    console.log(error.message);
+    console.log(error.message, "cloudnary-----");
   }
 };
 

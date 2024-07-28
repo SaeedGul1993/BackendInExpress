@@ -1,14 +1,15 @@
 import jwt from "jsonwebtoken";
-import { SECRET_KEY } from "../../db/secretKey.mjs";
 import { User } from "../../db/userModel.mjs";
 
 const verifyTokenMiddleware = async (request, response, next) => {
   const getHeader = request.header("Authorization");
+
+  console.log("request.header", request.header("Content-Type"));
   const fetchToken = getHeader.replace("Bearer ", "");
   console.log(fetchToken, "fetchToken");
   if (!fetchToken) response.status(401).send({ message: "UnAuthorized!." });
   try {
-    const verifyToken = jwt.verify(fetchToken, SECRET_KEY);
+    const verifyToken = jwt.verify(fetchToken, process.env.SECRET_KEY);
     const fetchUser = await User.findById(verifyToken?.id);
     if (!fetchUser) response.status(401).send({ message: "UnAuthorized!." });
     request.user = fetchUser;

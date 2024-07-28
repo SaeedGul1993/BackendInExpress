@@ -3,6 +3,7 @@ import userRoutes from "./routes/userRoutes.mjs";
 import mongoose from "mongoose";
 import notesRoutes from "./routes/notesRoutes.mjs";
 import dotenv from "dotenv";
+import blogRoutes from "./routes/blogRoutes.mjs";
 
 dotenv.config();
 mongoose
@@ -19,6 +20,7 @@ app.use(express.json());
 
 app.use(userRoutes);
 app.use(notesRoutes);
+app.use(blogRoutes);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

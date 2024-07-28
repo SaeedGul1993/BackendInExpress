@@ -122,7 +122,6 @@ const uploadUserProfileController = async (request, response) => {
     user,
   } = request;
   try {
-    console.log(path, user, "file Path");
     const uploadFile = await uploadFileOnCloudnary(path);
     user.profile = uploadFile?.secure_url;
     await User.updateOne({ email: user?.email }, user);
