@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import notesRoutes from "./routes/notesRoutes.mjs";
 import dotenv from "dotenv";
 import blogRoutes from "./routes/blogRoutes.mjs";
+import paymentRoutes from "./routes/paymentRoutes.mjs";
 
 dotenv.config();
 mongoose
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use(userRoutes);
 app.use(notesRoutes);
 app.use(blogRoutes);
+app.use(paymentRoutes);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

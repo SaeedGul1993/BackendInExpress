@@ -18,6 +18,12 @@ const UserModel = new mongoose.Schema(
       required: false,
       unique: false,
     },
+    customer_id: {
+      type: mongoose.Schema.Types.String,
+      required: false,
+      unique: false,
+      default: null,
+    },
   },
 
   { timestamps: true }
